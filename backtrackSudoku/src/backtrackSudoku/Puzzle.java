@@ -14,8 +14,10 @@ public class Puzzle {
 		for(int i = 0; i < cells.numItems; i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
-			c.reduceOptions(this);
-			cells.enqueue(c);
+			
+			// Possibly Not Ready
+			//c.reduceOptions(this);
+			//cells.enqueue(c);
 		}
 	}
 	

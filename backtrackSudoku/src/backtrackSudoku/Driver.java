@@ -20,13 +20,16 @@ public class Driver {
 		String filename = "";
 		
 		try{
-			filename = args[0];
+			//filename = args[0];
+			filename = "src\\testInput.txt";
+			System.out.println(filename);
 		}catch(Exception e){
-			System.out.print("Error reading from file.\n");
+			System.out.print("Error reading from file.\n" + e.toString());
 			throw e;
 		}
 		
 		Puzzle puzz = readFile(filename);
+		Solver solve = new Solver(puzz);
 	}
 	
 	/*
@@ -39,7 +42,6 @@ public class Driver {
 	private static Puzzle readFile(String filename){
 		int w = 0, h = 0, size = 0;
 		BufferedReader br = null;
-		int sdk[][] = null;
 		
 		try {
 			br = new BufferedReader(new FileReader(filename));
@@ -53,6 +55,7 @@ public class Driver {
 		
 		size = w * h;
 		Queue<Cell> cells = new Queue<Cell>(size); //use size simply for initialization
+		int sdk[][] = new int[size][size];
 		
 		// Use regex to pull numbers out of the string read in by
 		// BufferedReader br.readLine() and populate 2D array sdk[][]
