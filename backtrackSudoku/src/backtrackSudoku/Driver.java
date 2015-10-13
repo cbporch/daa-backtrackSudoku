@@ -30,6 +30,7 @@ public class Driver {
 		
 		Puzzle puzz = readFile(filename);
 		Solver solve = new Solver(puzz);
+		solve.Solve();
 	}
 	
 	/*
@@ -73,7 +74,7 @@ public class Driver {
 
 			while (m.find() && y < (size)) {
 				sdk[x][y] = Integer.parseInt(m.group());
-				System.out.print(sdk[x][y] + " ");
+				//System.out.print(sdk[x][y] + " ");
 				if (sdk[x][y] == 0) {
 					//adds cells to cell queue
 					Cell cell = new Cell(x, y, size);
@@ -81,7 +82,7 @@ public class Driver {
 				} // end if
 				y++;
 			} // end while
-			System.out.println("");
+			//System.out.println("");
 
 		} // end for
 		
