@@ -15,28 +15,37 @@ public class Solver {
 		h = puzz.getY();
 		size = puzz.getSize();
 	}
-	
-	public static void Solve()
-	{
+
+	public static void Solve() {
 		tim = new Timer();
 		tim.start();
-		
+
 		int[][] tempPuzz = clonePuzzle(currentPuzzle.getGrid());
-		for(int i )
-		
+		int tempRow[] = new int[size];
+		int tempCol[] = new int[size];
+		for (int i = 0; i < size; i++) {
+			for(int j = 0;j < size; j++)
+			{
+			tempRow = tempPuzz[i];
+			tempCol[j] = tempPuzz[j][i];
+			}
+			System.out.println("Row " + (i+1) + " = " + checkRowColumn(tempRow));
+			System.out.println("Column " + (i+1) + " = " + checkRowColumn(tempCol));
+		}
+
 		listPuzzle(tempPuzz);
-		
+
 		tim.stop();
 		System.out.println("Total Runtime: " + tim.getDuration() + " milliseconds");
 	}
-	
+
 	public static int[][] clonePuzzle(int[][] puzz) {
 		int tempSDK[][] = new int[size][size];
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
 				tempSDK[x][y] = puzz[x][y];
-			}// end for
-		}// end for
+			} // end for
+		} // end for
 		return tempSDK;
 	}// end clonePuzzle
 
@@ -51,7 +60,7 @@ public class Solver {
 		}
 		return true;
 	}// end CheckRowColumn
-	
+
 	public static boolean checkBlocks(Puzzle puzz) {
 		int size = puzz.getSize(), w = puzz.getX(), h = puzz.getY();
 		int arr[][] = puzz.getGrid();
@@ -81,13 +90,13 @@ public class Solver {
 		}
 		return false;
 	}// end checkBlocks
-	
+
 	public static void listPuzzle(int[][] puzz) {
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
 				System.out.print(puzz[x][y] + " ");
-			}// end for
+			} // end for
 			System.out.print("\n");
-		}// end for
+		} // end for
 	}// end listPuzzle
 }
