@@ -2,8 +2,8 @@ package backtrackSudoku;
 
 public class Puzzle {
 
-	int size, x, y;
-	int sdk[][];
+	private int size, x, y;
+	private int sdk[][];
 	// Linked List of cells?
 	
 	public Puzzle(int x, int y, int[][] sdk, Queue<Cell> cells){
@@ -20,5 +20,34 @@ public class Puzzle {
 			//cells.enqueue(c);
 		}
 	}
+	
+	public int[] getRow(int r){
+		return sdk[r];
+	}
+	
+	public int[] getColumn(int c){
+		int col[] = new int[size];
+		for(int i = 0; i < size;i++){
+			col[i] = sdk[i][c];
+		}
+		return col;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int[][] getGrid() {
+		return sdk;
+	}
+	
 	
 }

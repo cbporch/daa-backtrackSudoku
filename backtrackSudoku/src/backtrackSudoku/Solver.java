@@ -25,4 +25,34 @@ public class Solver {
 		}
 		return true;
 	}// end CheckRowColumn
+	
+	public static boolean checkBlocks(Puzzle puzz) {
+		int size = puzz.getSize(), w = puzz.getX(), h = puzz.getY();
+		int arr[][] = puzz.getGrid();
+		int x_offset = 0, y_offset = 0, point = 0;
+		boolean pass = false;
+		int temparray[] = new int[size];
+		for (int i = 0; i < size; i++) {
+			point = 0;
+			for (int j = x_offset; j < (w + x_offset); j++) {
+				for (int k = y_offset; k < h + y_offset; k++) {
+					temparray[point] = arr[j][k];
+					point++;
+				}
+			}
+			pass = checkRowColumn(temparray);
+			if (x_offset < size) {
+				x_offset += w;
+				if (x_offset == size) {
+					x_offset = 0;
+					y_offset += h;
+					if (y_offset == size) {
+						// checked all blocks
+						return pass;
+					}
+				}
+			}
+		}
+		return false;
+	}// end checkBlocks
 }

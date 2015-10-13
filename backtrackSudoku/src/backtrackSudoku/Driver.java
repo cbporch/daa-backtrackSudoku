@@ -13,16 +13,16 @@ public class Driver {
 
 	public static void main(String[] args) {
 
-		if(args.length == 0){
+		if(args.length < 1){
 			System.out.print("Error: need file name in command line\n");
 		}
 		
 		String filename = "";
 		
 		try{
-			//filename = args[0];
-			filename = "src\\testInput.txt";
-			System.out.println(filename);
+			filename = args[0];
+			//filename = "src\\testInput.txt";
+			//System.out.println(filename);
 		}catch(Exception e){
 			System.out.print("Error reading from file.\n" + e.toString());
 			throw e;
