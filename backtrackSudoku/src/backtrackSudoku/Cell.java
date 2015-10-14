@@ -4,12 +4,12 @@ public class Cell {
 	
 	int x;
 	int y;
-	int options[];
+	Queue<Integer> options[];
 	
 	public Cell(int x, int y, int size) {
 		this.x = x;
 		this.y = y;
-		options = new int[size];
+		options = new Queue[size];
 	}
 	
 	public int getX() {
@@ -20,7 +20,7 @@ public class Cell {
 		return y;
 	}
 	
-	public int[] getOptions(){
+	public Queue<Integer>[] getOptions(){
 		return options;
 	}
 	

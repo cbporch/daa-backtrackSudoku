@@ -4,13 +4,14 @@ public class Puzzle {
 
 	private int size, x, y;
 	private int sdk[][];
-	// Linked List of cells?
+	Queue<Cell> cells;
 	
 	public Puzzle(int x, int y, int[][] sdk, Queue<Cell> cells){
 		this.x = x;
 		this.y = y;
 		this.size = x * y;
 		this.sdk = sdk;
+		this.cells = cells;
 		for(int i = 0; i < cells.numItems; i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
