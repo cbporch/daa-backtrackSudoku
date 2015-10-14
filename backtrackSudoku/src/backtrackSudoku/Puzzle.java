@@ -15,11 +15,10 @@ public class Puzzle {
 		for(int i = 0; i < cells.length(); i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
-			
-			// Possibly Not Ready
-			//c.reduceOptions(this);
-			//cells.enqueue(c);
+			c.reduceOptions(this);
+			cells.enqueue(c);
 		}
+		//sortCells();
 	}
 	
 	public int[] getRow(int r){
@@ -50,7 +49,45 @@ public class Puzzle {
 		return sdk;
 	}
 	
-	public void  sortCells(){
-		
+	public int[] getBlock(int r, int c){
+		int[] block = new int[size];
+		int row = 0,col = 0;
+		for (int i=0; i < c; i++){
+			if(i%y == 0)
+			{
+				col++;
+			}
+		}
+		for (int i=0; i < r; i++){
+			if(i%x == 0){
+				row++;
+			}
+		}
+		int x_offset = x*(row-1);
+		int y_offset = y*(col-1);
+		int count = 0;
+		for (int j = x_offset; j < (x + x_offset); j++) {
+			for (int k = y_offset; k < y + y_offset; k++) {
+				block[count] = sdk[j][k];
+				count++;
+			}
+		}
+		return block;
 	}
+	
+	public void sortCells(){
+		int l = cells.length();
+		if(l>1){
+			Cell greatest = null, next = null;
+			for(int i = 0; i < l; i++){
+				greatest = cells.dequeue();
+				next = cells.peek();
+				if(greatest.getOptions().length() <= next.getOptions().length()){
+					cells.enqueue(greatest);
+					greatest = next;
+					next = cells.peek();
+				}
+			}
+		}
+	} // end sortCells
 }
