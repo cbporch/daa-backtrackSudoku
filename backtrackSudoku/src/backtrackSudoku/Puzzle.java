@@ -4,15 +4,15 @@ public class Puzzle {
 
 	private int size, x, y;
 	private int sdk[][];
-	Queue<Cell> cells;
+	ABQueue<Cell> cells;
 	
-	public Puzzle(int x, int y, int[][] sdk, Queue<Cell> cells){
+	public Puzzle(int x, int y, int[][] sdk, ABQueue<Cell> cells){
 		this.x = x;
 		this.y = y;
 		this.size = x * y;
 		this.sdk = sdk;
 		this.cells = cells;
-		for(int i = 0; i < cells.numItems; i++){
+		for(int i = 0; i < cells.length(); i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
 			

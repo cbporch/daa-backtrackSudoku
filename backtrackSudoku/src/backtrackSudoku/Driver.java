@@ -54,7 +54,7 @@ public class Driver {
 		} // end try catch
 		
 		size = w * h;
-		Queue<Cell> cells = new Queue<Cell>(size); //use size simply for initialization
+		ABQueue<Cell> cells = new ABQueue<Cell>(size); //use size simply for initialization
 		int sdk[][] = new int[size][size];
 		
 		// Use regex to pull numbers out of the string read in by
