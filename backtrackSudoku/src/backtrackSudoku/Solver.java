@@ -6,7 +6,7 @@ package backtrackSudoku;
 public class Solver {
 	public static Puzzle currentPuzzle;
 	public static int w = 0, h = 0, size = 0;
-	public static Timer tim;
+	
 
 	Solver(Puzzle puzz) {
 		currentPuzzle = puzz;
@@ -16,12 +16,11 @@ public class Solver {
 	}
 
 	public static void Solve() {
-		tim = new Timer();
-		tim.start();
-
+		
 		int[][] tempPuzz = clonePuzzle(currentPuzzle.getGrid());
 		int tempRow[] = new int[size];
 		int tempCol[] = new int[size];
+		// test block
 		for (int i = 0; i < size; i++) {
 			for(int j = 0;j < size; j++)
 			{
@@ -34,11 +33,34 @@ public class Solver {
 
 		listPuzzle(tempPuzz);
 
-		tim.stop();
-		System.out.println("Total Runtime: " + tim.getDuration() + " milliseconds");
+		System.out.println(solvePuzzle(currentPuzzle, currentPuzzle.getCells()));
+		
 	}
 
-	public static int[][] clonePuzzle(int[][] puzz) {
+	private static boolean solvePuzzle(Puzzle puzz, ABQueue<Cell> cellList){
+		if(cellList.isEmpty()){
+			// no more cells, check solution
+			return checkPuzzle(puzz);
+		}else if(cellList.peek().getOptions().isEmpty()){
+			//cell has no viable option
+			return false;
+		}else{
+			Cell c = cellList.dequeue();
+			c.reduceOptions(puzz);
+			if(c.getOptions().isEmpty()){
+				System.out.println();
+				listPuzzle(puzz.getGrid());
+				return false;
+			}
+			int sdk[][] = puzz.getGrid();
+			sdk[c.getX()][c.getY()] = c.getOptions().dequeue();
+			puzz.setGrid(sdk);
+			ABQueue<Cell> temp = cellList;
+			return solvePuzzle(puzz, temp);
+		}
+	}
+	
+ 	public static int[][] clonePuzzle(int[][] puzz) {
 		int size = puzz.length;
 		int tempSDK[][] = new int[size][size];
 		for (int x = 0; x < (size); x++) {
@@ -75,6 +97,7 @@ public class Solver {
 					point++;
 				}
 			}
+			
 			pass = checkRowColumn(temparray);
 			if (x_offset < size) {
 				x_offset += w;
@@ -91,6 +114,39 @@ public class Solver {
 		return false;
 	}// end checkBlocks
 
+	/*
+	 * Checks the given puzzle for correctness, using the checkRowColumn and 
+	 * checkBlocks methods. returns true if the puzzle is a valid
+	 * solution, false if not.
+	 */
+	public static boolean checkPuzzle(Puzzle puzz) {
+		boolean pass = false;
+		int temp[][] = puzz.getGrid();
+			int tempRow[] = new int[size];
+			int tempCol[] = new int[size];
+			for (int i = 0; i < (size); i++) {
+				for (int j = 0; j < (size); j++) {
+					tempCol[j] = temp[j][i]; // pulls numbers from each column
+				} // end for
+
+				tempRow = temp[i];
+				
+				if ((checkRowColumn(tempRow)) && (checkRowColumn(tempCol))) {
+					pass = true;
+				} else {
+					// fail, exit loop
+					return false;
+				} // end if else
+			} // end for
+
+			if (pass) {// if all rows/columns pass
+				pass = checkBlocks(puzz);
+				return pass;
+			}// end if
+			return false;
+		
+	}// end checkPuzzle
+	
 	public static void listPuzzle(int[][] puzz) {
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {

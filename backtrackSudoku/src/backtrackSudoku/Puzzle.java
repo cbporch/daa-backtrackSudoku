@@ -49,31 +49,34 @@ public class Puzzle {
 		return sdk;
 	}
 
+	public void setGrid(int grid[][]) {
+		sdk = grid;
+	}
+
+	public ABQueue<Cell> getCells() {
+		return cells;
+	}
+
 	public int[] getBlock(int r, int c) {
 		int[] block = new int[size];
-		int row = 0, col = 0;
-		for (int i = 0; i <= c; i++) {
-			if (i % x == 0) {
-				col++;
+
+		int x_offset = 0, y_offset = 0;
+		for(int row = r; row > 0; row--){
+			if((row % y) == 0){
+				x_offset = row;
 			}
 		}
-		for (int i = 0; i <= r; i++) {
-			if (i % y == 0) {
-				row++;
+		
+		for(int col = c; col > 0; col--){
+			if((col % x) == 0){
+				y_offset = col;
 			}
 		}
-		int x_offset = x * (row - 1);
-		int y_offset = y * (col - 1);
-		if(x_offset<0){
-			x_offset = 0;
-		}
-		if(y_offset<0){
-			y_offset = 0;
-		}
+		
 		int count = 0;
-		for (int j = x_offset; j < (x + x_offset); j++) {
-			for (int k = y_offset; k < y + y_offset; k++) {
-				block[count] = sdk[k][j];
+		for (int j = x_offset; j < (y + x_offset); j++) {
+			for (int k = y_offset; k < x + y_offset; k++) {
+				block[count] = sdk[j][k];
 				count++;
 			}
 		}
@@ -81,18 +84,6 @@ public class Puzzle {
 	}
 
 	public void sortCells() {
-		int l = cells.length();
-		if (l > 1) {
-			Cell greatest = null, next = null;
-			for (int i = 0; i < l; i++) {
-				greatest = cells.dequeue();
-				next = cells.peek();
-				if (greatest.getOptions().length() <= next.getOptions().length()) {
-					cells.enqueue(greatest);
-					greatest = next;
-					next = cells.peek();
-				}
-			}
-		}
+
 	} // end sortCells
 }

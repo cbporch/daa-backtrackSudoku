@@ -10,8 +10,11 @@ import java.util.regex.Pattern;
  * Driver handles all file input
  */
 public class Driver {
-
+	public static Timer tim;
 	public static void main(String[] args) {
+		tim = new Timer();
+		tim.start();
+
 		boolean test = false;
 		if(!test){
 			if(args.length < 1){
@@ -31,12 +34,13 @@ public class Driver {
 			
 			Puzzle puzz = readFile(filename);
 			
-			int t[] = puzz.getBlock(0, 0);
-			int t2[] = puzz.getBlock(3, 1);
+			int t[] = puzz.getBlock(2, 4);
+			int t2[] = puzz.getBlock(0, 0);
 			boolean pass = false;
 			for(int i = 0; i < t.length; i++){
+				
 				pass = (t[i] == t2[i]);
-				System.out.println(pass);
+				System.out.println(t[i] + " " + t2[i] + " " + pass);
 			}
 			System.out.println();
 			Solver solve = new Solver(puzz);
@@ -45,6 +49,9 @@ public class Driver {
 		}else{
 			
 		}
+		
+		tim.stop();
+		System.out.println("Total Runtime: " + tim.getDuration() + " milliseconds");
 	}
 	
 	/*
