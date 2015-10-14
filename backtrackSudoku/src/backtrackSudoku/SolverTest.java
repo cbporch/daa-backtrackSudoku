@@ -8,20 +8,6 @@ public class SolverTest {
 
 	Solver solve;
 
-	public SolverTest(){
-		
-	}
-
-	@Test
-	public void testSolver() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSolve() {
-		fail("Not yet implemented");
-	}
-
 	@Test
 	public void testClonePuzzle() {
 		int[][] ints = new int[][]{
@@ -51,9 +37,15 @@ public class SolverTest {
 			{1,2,3,4},
 			{1,2,3,4},
 			{1,2,3,4}};
+		int[][] trueInts = new int[][]{
+			{2,3,1,4},
+			{4,1,3,2},
+			{3,2,4,1},
+			{1,4,2,3}};
 		Queue tempQueue = new Queue(0);
-		Puzzle puzz = new Puzzle(2,2,ints,tempQueue);
-
-		assertFalse(solve.checkBlocks(puzz));
+		Puzzle falsePuzz = new Puzzle(2,2,falseInts,tempQueue);
+		Puzzle truePuzz = new Puzzle(2,2,trueInts,tempQueue);
+		assertFalse(solve.checkBlocks(falsePuzz));
+		assertTrue(solve.checkBlocks(truePuzz));
 	}
 }
