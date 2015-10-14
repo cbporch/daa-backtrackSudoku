@@ -12,25 +12,39 @@ import java.util.regex.Pattern;
 public class Driver {
 
 	public static void main(String[] args) {
-
-		if(args.length < 1){
-			System.out.print("Error: need file name in command line\n");
+		boolean test = false;
+		if(!test){
+			if(args.length < 1){
+				System.out.print("Error: need file name in command line\n");
+			}
+			
+			String filename = "";
+			
+			try{
+				filename = args[0];
+				//filename = "src\\testInput.txt";
+				//System.out.println(filename);
+			}catch(Exception e){
+				System.out.print("Error reading from file.\n" + e.toString());
+				throw e;
+			}
+			
+			Puzzle puzz = readFile(filename);
+			
+			int t[] = puzz.getBlock(0, 0);
+			int t2[] = puzz.getBlock(3, 1);
+			boolean pass = false;
+			for(int i = 0; i < t.length; i++){
+				pass = (t[i] == t2[i]);
+				System.out.println(pass);
+			}
+			System.out.println();
+			Solver solve = new Solver(puzz);
+			solve.Solve();
+			
+		}else{
+			
 		}
-		
-		String filename = "";
-		
-		try{
-			filename = args[0];
-			//filename = "src\\testInput.txt";
-			//System.out.println(filename);
-		}catch(Exception e){
-			System.out.print("Error reading from file.\n" + e.toString());
-			throw e;
-		}
-		
-		Puzzle puzz = readFile(filename);
-		Solver solve = new Solver(puzz);
-		solve.Solve();
 	}
 	
 	/*
