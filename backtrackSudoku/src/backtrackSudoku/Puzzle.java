@@ -15,10 +15,11 @@ public class Puzzle {
 		for(int i = 0; i < cells.length(); i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
-			c.reduceOptions(this);
-			cells.enqueue(c);
+			
+			// Possibly Not Ready
+			//c.reduceOptions(this);
+			//cells.enqueue(c);
 		}
-		sortCells();
 	}
 	
 	public int[] getRow(int r){
@@ -49,19 +50,7 @@ public class Puzzle {
 		return sdk;
 	}
 	
-	public void sortCells(){
-		int l = cells.length();
-		if(l>1){
-			Cell greatest = null, next = null;
-			for(int i = 0; i < l; i++){
-				greatest = cells.dequeue();
-				next = cells.peek();
-				if(greatest.getOptions().length() <= next.getOptions().length()){
-					cells.enqueue(greatest);
-					greatest = next;
-					next = cells.peek();
-				}
-			}
-		}
-	} // end sortCells
+	public void  sortCells(){
+		
+	}
 }

@@ -19,6 +19,7 @@ public class SolverTest {
 		solve.listPuzzle(ints);
 		solve.listPuzzle(tempInts);
 		assertArrayEquals(ints,tempInts);
+		getBlock
 	}
 
 	@Test
