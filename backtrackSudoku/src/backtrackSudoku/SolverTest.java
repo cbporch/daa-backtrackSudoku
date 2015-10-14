@@ -24,7 +24,15 @@ public class SolverTest {
 
 	@Test
 	public void testClonePuzzle() {
-		fail("Not yet implemented");
+		int[][] ints = new int[][]{
+			{1,2,3,4},
+			{1,2,3,4},
+			{1,2,3,4},
+			{1,2,3,4}};
+		int[][] tempInts = solve.clonePuzzle(ints);
+		solve.listPuzzle(ints);
+		solve.listPuzzle(tempInts);
+		assertArrayEquals(ints,tempInts);
 	}
 
 	@Test
@@ -40,10 +48,4 @@ public class SolverTest {
 	public void testCheckBlocks() {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testListPuzzle() {
-		fail("Not yet implemented");
-	}
-
 }
