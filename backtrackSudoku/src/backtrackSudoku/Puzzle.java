@@ -15,10 +15,8 @@ public class Puzzle {
 		for(int i = 0; i < cells.length(); i++){
 			// reduce available cell options
 			Cell c = cells.dequeue();
-			
-			// Possibly Not Ready
-			//c.reduceOptions(this);
-			//cells.enqueue(c);
+			c.reduceOptions(this);
+			cells.enqueue(c);
 		}
 	}
 	
@@ -50,7 +48,7 @@ public class Puzzle {
 		return sdk;
 	}
 	
-	public void  sortCells(){
+	public void sortCells(){
 		
 	}
 }

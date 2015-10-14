@@ -42,7 +42,7 @@ public class SolverTest {
 			{4,1,3,2},
 			{3,2,4,1},
 			{1,4,2,3}};
-		Queue tempQueue = new Queue(0);
+		ABQueue tempQueue = new ABQueue(0);
 		Puzzle falsePuzz = new Puzzle(2,2,falseInts,tempQueue);
 		Puzzle truePuzz = new Puzzle(2,2,trueInts,tempQueue);
 		assertFalse(solve.checkBlocks(falsePuzz));
