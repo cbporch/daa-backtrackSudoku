@@ -18,7 +18,7 @@ public class Puzzle {
 			c.reduceOptions(this);
 			cells.enqueue(c);
 		}
-		sortCells();
+		//sortCells();
 	}
 	
 	public int[] getRow(int r){
@@ -47,6 +47,32 @@ public class Puzzle {
 
 	public int[][] getGrid() {
 		return sdk;
+	}
+	
+	public int[] getBlock(int r, int c){
+		int[] block = new int[size];
+		int row = 0,col = 0;
+		for (int i=0; i <= c; i++){
+			if(i%y == 0)
+			{
+				col++;
+			}
+		}
+		for (int i=0; i <= r; i++){
+			if(i%x == 0){
+				row++;
+			}
+		}
+		int x_offset = x*(row-1);
+		int y_offset = y*(col-1);
+		int count = 0;
+		for (int j = x_offset; j < (x + x_offset); j++) {
+			for (int k = y_offset; k < y + y_offset; k++) {
+				block[count] = sdk[j][k];
+				count++;
+			}
+		}
+		return block;
 	}
 	
 	public void sortCells(){
