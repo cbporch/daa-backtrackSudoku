@@ -46,13 +46,13 @@ public class SolverTest {
 
 	@Test
 	public void testCheckBlocks() {
-		int[][] ints = new int[][]{
+		int[][] falseInts = new int[][]{
 			{1,2,3,4},
 			{1,2,3,4},
 			{1,2,3,4},
 			{1,2,3,4}};
-			
-		Puzzle puzz = new Puzzle(2,2,ints,null);
+		Queue tempQueue = new Queue(0);
+		Puzzle puzz = new Puzzle(2,2,ints,tempQueue);
 
 		assertFalse(solve.checkBlocks(puzz));
 	}
