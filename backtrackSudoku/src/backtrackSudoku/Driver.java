@@ -30,7 +30,6 @@ public class Driver {
 		
 		Puzzle puzz = readFile(filename);
 		Solver solve = new Solver(puzz);
-		SolveTest 
 		solve.Solve();
 	}
 	

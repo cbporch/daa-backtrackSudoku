@@ -5,9 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SolverTest {
-	
-	Puzzle tempPuzzle = new Puzzle(0, 0, null, null);
-	Solver solve = new Solver(tempPuzzle);
+
+	Solver solve;
+
+	public SolverTest(){
+		
+	}
 
 	@Test
 	public void testSolver() {
@@ -26,9 +29,9 @@ public class SolverTest {
 
 	@Test
 	public void testCheckRowColumn() {
-		int passRow[] = {1,2,3,4,5,6};
-		int failRow[] = {6,2,3,4,5,6};
-		
+		int passRow[] = { 1, 2, 3, 4, 5, 6 };
+		int failRow[] = { 6, 2, 3, 4, 5, 6 };
+
 		assertTrue(solve.checkRowColumn(passRow));
 		assertFalse(solve.checkRowColumn(failRow));
 	}
