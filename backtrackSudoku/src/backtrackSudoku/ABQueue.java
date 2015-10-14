@@ -31,10 +31,11 @@ public class ABQueue<T> {
 
 		if (numItems == 0) {
 			items[front] = newItem;
+			back++;
 			numItems++;
 
 		} else {
-			back = (back + 1) % (items.length - 1);
+			back = (back + 1) % (items.length);
 			items[back] = newItem;
 			numItems++;
 		}
