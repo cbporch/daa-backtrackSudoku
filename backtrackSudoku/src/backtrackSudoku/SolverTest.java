@@ -46,6 +46,14 @@ public class SolverTest {
 
 	@Test
 	public void testCheckBlocks() {
-		fail("Not yet implemented");
+		int[][] ints = new int[][]{
+			{1,2,3,4},
+			{1,2,3,4},
+			{1,2,3,4},
+			{1,2,3,4}};
+			
+		Puzzle puzz = new Puzzle(2,2,ints,null);
+
+		assertFalse(solve.checkBlocks(puzz));
 	}
 }

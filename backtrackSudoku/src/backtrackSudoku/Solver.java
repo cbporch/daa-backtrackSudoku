@@ -40,6 +40,7 @@ public class Solver {
 	}
 
 	public static int[][] clonePuzzle(int[][] puzz) {
+		int size = puzz.length;
 		int tempSDK[][] = new int[size][size];
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
