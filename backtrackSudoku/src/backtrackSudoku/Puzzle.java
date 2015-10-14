@@ -81,18 +81,70 @@ public class Puzzle {
 	}
 
 	public void sortCells() {
+//		int l = cells.length();
+//		if (l > 1) {
+//			Cell greatest = null, next = null;
+//			for (int i = 0; i < l; i++) {
+//				greatest = cells.dequeue();
+//				next = cells.peek();
+//				if (greatest.getOptions().length() <= next.getOptions().length()) {
+//					cells.enqueue(greatest);
+//					greatest = next;
+//					next = cells.peek();
+//				}
+//			}
+//		}
 		int l = cells.length();
-		if (l > 1) {
-			Cell greatest = null, next = null;
-			for (int i = 0; i < l; i++) {
-				greatest = cells.dequeue();
-				next = cells.peek();
-				if (greatest.getOptions().length() <= next.getOptions().length()) {
-					cells.enqueue(greatest);
-					greatest = next;
-					next = cells.peek();
-				}
-			}
+		int tempArray[] = new int[l];
+		ABQueue<Cell> tempCells= new ABQueue<Cell>(l);
+		for(int i=0; i<l; i++){
+			Cell temp = cells.dequeue();
+			tempCells.enqueue(temp);
+			cells.enqueue(temp);
 		}
+		for(int i=0; i<l; i++){
+			tempArray[i] = cells.dequeue().getOptions().length();
+		}
+		int High = tempArray.length-1;
+		quickSort(0,High,tempArray);
 	} // end sortCells
+	
+	private static void quickSort(int Low, int High,int[] num)
+    {
+        int low = Low;
+        int high = High;
+        int pivot = num[Low + (High - Low) /2];
+        while(low <= high)
+            {
+                while (num[low] < pivot)
+                    {
+                        low++;
+                    }
+                while (num[high] > pivot)
+                    {
+                        high--;
+                    }
+                if (low <= high)
+                    {
+                        sort(low, high, num);
+                        low++;
+                        high--;
+                    }
+            }
+        if (Low < high)
+            {
+                quickSort(Low, high, num);
+            }
+        if (low < High)
+            {
+                quickSort(low, High, num);
+            }
+    }
+
+    private static void sort(int low, int high, int[] num)
+    {
+        int temp = num[low];
+        num[low] = num[high];
+        num[high] = temp;
+    }
 }
