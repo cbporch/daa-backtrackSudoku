@@ -50,5 +50,7 @@ public class Puzzle {
 		return sdk;
 	}
 	
-	
+	public void  sortCells(){
+		
+	}
 }
