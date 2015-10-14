@@ -18,6 +18,7 @@ public class Puzzle {
 			c.reduceOptions(this);
 			cells.enqueue(c);
 		}
+		sortCells();
 	}
 	
 	public int[] getRow(int r){
@@ -49,6 +50,18 @@ public class Puzzle {
 	}
 	
 	public void sortCells(){
-		
-	}
+		int l = cells.length();
+		if(l>1){
+			Cell greatest = null, next = null;
+			for(int i = 0; i < l; i++){
+				greatest = cells.dequeue();
+				next = cells.peek();
+				if(greatest.getOptions().length() <= next.getOptions().length()){
+					cells.enqueue(greatest);
+					greatest = next;
+					next = cells.peek();
+				}
+			}
+		}
+	} // end sortCells
 }
