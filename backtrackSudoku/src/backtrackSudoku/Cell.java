@@ -2,9 +2,9 @@ package backtrackSudoku;
 
 public class Cell {
 	
-	int x;
-	int y;
-	ABQueue<Integer> options;
+	private int x;
+	private int y;
+	private ABQueue<Integer> options;
 	
 	public Cell(int x, int y, int size) {
 		this.x = x;

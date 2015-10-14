@@ -1,9 +1,9 @@
 package backtrackSudoku;
 
 public class ABQueue<T> {
-	T data;
-	T[] items;
-	int front, back, numItems;
+	private T data;
+	private T[] items;
+	private int front, back, numItems;
 
 	public ABQueue(T data, int length) {
 		this.data = data;
