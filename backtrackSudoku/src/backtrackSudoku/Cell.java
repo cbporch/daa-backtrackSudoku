@@ -32,10 +32,10 @@ public class Cell {
 	 */
 	public void reduceOptions(Puzzle p) {
 		int pSize = p.getSize();
-		ABQueue<Integer> newOptions = options;
-//		for (int i = 1; i <= (pSize); i++) {
-//			newOptions.enqueue(i);
-//		}
+		ABQueue<Integer> newOptions = new ABQueue<Integer>(pSize);
+		for (int i = 1; i <= (pSize); i++) {
+			newOptions.enqueue(i);
+		}
 		
 		int temp[] = p.getRow(row);
 		int OptLen = newOptions.length();

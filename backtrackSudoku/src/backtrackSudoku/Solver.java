@@ -28,18 +28,21 @@ public class Solver {
 			System.out.println("Row " + (i + 1) + " = " + checkRowColumn(tempRow));
 			System.out.println("Column " + (i + 1) + " = " + checkRowColumn(tempCol));
 		}
-
+		System.out.println("\nEntered Puzzle:");
 		listPuzzle(tempPuzz);
-
-		System.out.println(solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0));
-
+		if(solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0)){
+			System.out.println("Solved");
+		} else {
+			System.out.println("Unsolvable");
+		}
 	}
 
 	private static boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
-		System.out.println();
-		listPuzzle(puzz.getGrid());
+	
 		if (curr == puzz.getCellCount()) {
 			// no more cells, check solution for duplicates
+			System.out.println();
+			listPuzzle(puzz.getGrid());
 			return checkPuzzle(puzz);
 		} else if (cellList[curr].getOptions().isEmpty()) {
 			// cell has no viable option
@@ -47,29 +50,56 @@ public class Solver {
 		} else {
 			Cell c = cellList[curr];
 			c.reduceOptions(puzz);
+		
 			if (c.getOptions().isEmpty()) {
-				//current cell has no options after reduction
-				System.out.println();
-				listPuzzle(puzz.getGrid());
+				// current cell has no options after reduction
+				//System.out.println();
+				//listPuzzle(puzz.getGrid());
 				return false;
 			}
-			int sdk[][] = puzz.getGrid();
-			sdk[c.getY()][c.getX()] = c.getOptions().peek();
-			puzz.setGrid(sdk);
-			if(solvePuzzle(puzz, cellList, ++curr)){
-				// if next subtree passes return true
-				return true;
-			}else{
-				//otherwise, attempt again with next subtree, staying with current cell
-				try{
-					c.getOptions().dequeue();
-				}catch(QueueException e){
-					// cell has no more options
+			
+			//get first option from c, add to grid
+//			int sdk[][] = puzz.getGrid();
+//			sdk[c.getY()][c.getX()] = c.getOptions().peek();
+//			puzz.setGrid(sdk);
+			
+			// check subtree
+//			if (solvePuzzle(puzz, cellList, curr + 1)) {
+//				// if subtree passes return true
+//				return true;
+//			}
+				// loop through all options in c
+			boolean solved = false;
+			for (int i = 0; i < c.getOptions().length(); i++) {
+				// otherwise, attempt again with next subtree, staying with
+				// current cell
+				try {
+					int sdk[][] = puzz.getGrid();
+					sdk[c.getY()][c.getX()] = c.getOptions().peek();
+					puzz.setGrid(sdk);
+				} catch (Exception e) {
+					// peek failed, cell has no more options
 					return false;
 				}
-				return solvePuzzle(puzz, cellList, curr);
+				// check option
+				solved = solvePuzzle(puzz, cellList, curr + 1);
+				if (solved){
+					//option worked, check subtree
+					//System.out.println();
+					//listPuzzle(puzz.getGrid());
+					return true;
+				} else {
+					try {
+						c.getOptions().dequeue();
+					}catch(Exception e){
+						// no other options
+						return false;
+					}
+				}
 			}
+			
 		}
+		return false;
 	}
 
 	public static int[][] clonePuzzle(int[][] puzz) {
@@ -87,7 +117,7 @@ public class Solver {
 		int[] test = new int[nums.length + 1];
 		for (int i = 0; i < nums.length; i++) {
 			if (test[nums[i]] == 0) {
-				if (nums[i] != 0){ // allows for zeros
+				if (nums[i] != 0) { // allows for zeros
 					test[nums[i]]++;
 				}
 			} else {
@@ -104,18 +134,18 @@ public class Solver {
 		boolean pass = false;
 		int temparray[] = new int[size];
 		for (int i = 0; i < size; i++) {
-//			point = 0;
-//			for (int j = x_offset; j < (w + x_offset); j++) {
-//				for (int k = y_offset; k < h + y_offset; k++) {
-//					temparray[point] = arr[j][k];
-//					point++;
-//				}
-//			}
+			// point = 0;
+			// for (int j = x_offset; j < (w + x_offset); j++) {
+			// for (int k = y_offset; k < h + y_offset; k++) {
+			// temparray[point] = arr[j][k];
+			// point++;
+			// }
+			// }
 			int xcount = 0, ycount = 0;
-			for(int j = 0; j < size; j++){
+			for (int j = 0; j < size; j++) {
 				temparray[j] = arr[xcount + x_offset][ycount + y_offset];
 				xcount++;
-				if(xcount % puzz.getX() == 0 && ycount % puzz.getY() == 0){
+				if (xcount % puzz.getX() == 0 && ycount % puzz.getY() == 0) {
 					ycount++;
 					xcount = 0;
 				}
