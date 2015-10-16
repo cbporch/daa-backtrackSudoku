@@ -34,7 +34,7 @@ public class Driver {
 			
 			Puzzle puzz = readFile(filename);
 			
-			int t[] = puzz.getBlock(2, 4);
+			int t[] = puzz.getBlock(1, 3);
 			int t2[] = puzz.getBlock(0, 0);
 			boolean pass = false;
 			for(int i = 0; i < t.length; i++){
@@ -76,9 +76,9 @@ public class Driver {
 		} // end try catch
 		
 		size = w * h;
-		ABQueue<Cell> cells = new ABQueue<Cell>(size); //use size simply for initialization
+		Cell[] cells = new Cell[size*size]; //use size simply for initialization
 		int sdk[][] = new int[size][size];
-		
+		int cellCount = 0;
 		// Use regex to pull numbers out of the string read in by
 		// BufferedReader br.readLine() and populate 2D array sdk[][]
 		// counts number of zeros in the base file
@@ -99,7 +99,8 @@ public class Driver {
 				if (sdk[x][y] == 0) {
 					//adds cells to cell queue
 					Cell cell = new Cell(x, y, size);
-					cells.enqueue(cell);
+					cells[cellCount] = cell;
+					cellCount++;
 				} // end if
 				y++;
 			} // end while
@@ -107,7 +108,7 @@ public class Driver {
 
 		} // end for
 		
-		Puzzle puzz = new Puzzle(w, h, sdk, cells);
+		Puzzle puzz = new Puzzle(w, h, sdk, cells, cellCount);
 		return puzz;
 	}
 	
