@@ -50,6 +50,7 @@ public class Puzzle {
 	public int getCellCount(){
 		return cellCount;
 	}
+	
 	public int getSize() {
 		return size;
 	}

@@ -51,7 +51,7 @@ public class Solver {
 		}
 	}
 
-	private boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
+	protected boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
 		int sdk[][] = puzz.getGrid();
 		System.out.println();
 		listPuzzle(puzz.getGrid());
