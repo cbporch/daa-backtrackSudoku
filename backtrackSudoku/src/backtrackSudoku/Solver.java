@@ -11,7 +11,7 @@ package backtrackSudoku;
  */
 public class Solver {
 	public Puzzle currentPuzzle;
-	public int w = 0, h = 0, size = 0;
+	public static int w = 0, h = 0, size = 0;
 
 	Solver(Puzzle puzz) {
 		currentPuzzle = puzz;
@@ -21,7 +21,7 @@ public class Solver {
 	}
 
 	public void Solve() {
-
+		
 		int[][] tempPuzz = clonePuzzle(currentPuzzle.getGrid());
 		int tempRow[] = new int[size];
 		int tempCol[] = new int[size];
@@ -43,7 +43,7 @@ public class Solver {
 		}
 	}
 
-	private boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
+	static boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
 		int sdk[][] = puzz.getGrid();
 		Cell c = cellList[curr];
 
@@ -106,7 +106,7 @@ public class Solver {
 		return tempSDK;
 	}// end clonePuzzle
 
-	public boolean checkRowColumn(int[] nums) {
+	public static boolean checkRowColumn(int[] nums) {
 		int[] test = new int[nums.length + 1];
 		for (int i = 0; i < nums.length; i++) {
 			if (test[nums[i]] == 0) {
@@ -120,7 +120,7 @@ public class Solver {
 		return true;
 	}// end CheckRowColumn
 
-	public boolean checkBlocks(Puzzle puzz) {
+	public static boolean checkBlocks(Puzzle puzz) {
 		int size = puzz.getSize(), w = puzz.getX(), h = puzz.getY();
 		int arr[][] = puzz.getGrid();
 		int x_offset = 0, y_offset = 0;
@@ -159,7 +159,7 @@ public class Solver {
 	 * checkBlocks methods. returns true if the puzzle is a valid solution,
 	 * false if not.
 	 */
-	public boolean checkPuzzle(Puzzle puzz) {
+	public static boolean checkPuzzle(Puzzle puzz) {
 		boolean pass = false;
 		int temp[][] = puzz.getGrid();
 		int tempRow[] = new int[size];
@@ -187,7 +187,8 @@ public class Solver {
 
 	}// end checkPuzzle
 
-	public void listPuzzle(int[][] puzz) {
+	public static void listPuzzle(int[][] puzz) {
+		size = puzz.length;
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
 				System.out.print(puzz[x][y] + " ");
