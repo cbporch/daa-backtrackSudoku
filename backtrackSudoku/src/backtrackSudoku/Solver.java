@@ -34,6 +34,14 @@ public class Solver {
 			System.out.println("Row " + (i + 1) + " = " + checkRowColumn(tempRow));
 			System.out.println("Column " + (i + 1) + " = " + checkRowColumn(tempCol));
 		}
+		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
+			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
+		}
+		System.out.println();
+		currentPuzzle.sortCells();
+		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
+			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
+		}
 		System.out.println("\nEntered Puzzle:");
 		listPuzzle(tempPuzz);
 		if (solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0)) {
@@ -45,8 +53,6 @@ public class Solver {
 
 	private boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
 		int sdk[][] = puzz.getGrid();
-		Cell c = cellList[curr];
-
 		System.out.println();
 		listPuzzle(puzz.getGrid());
 		if (curr == puzz.getCellCount()) {
@@ -56,6 +62,7 @@ public class Solver {
 			return checkPuzzle(puzz);
 		}
 		// reduce current option
+		Cell c = cellList[curr];
 		c.reduceOptions(puzz);
 		if (c.getOptions().isEmpty()) {
 			// cell has no viable option
@@ -75,7 +82,9 @@ public class Solver {
 					return false;
 				}
 				// check option
-				if (checkPuzzle(puzz) && solvePuzzle(puzz, cellList, curr + 1) && !puzz.hasZeros()) {
+				if (checkPuzzle(puzz) && 
+						solvePuzzle(puzz, cellList, curr + 1) && 
+						!puzz.hasZeros()) {
 					// option worked
 					return true;
 				} else {
