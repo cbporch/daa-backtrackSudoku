@@ -43,7 +43,7 @@ public class Solver {
 		}
 	}
 
-	private boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
+	protected boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
 		int sdk[][] = puzz.getGrid();
 		Cell c = cellList[curr];
 
@@ -75,7 +75,9 @@ public class Solver {
 					return false;
 				}
 				// check option
-				if (checkPuzzle(puzz) && solvePuzzle(puzz, cellList, curr + 1) && !puzz.hasZeros()) {
+				if (checkPuzzle(puzz) && 
+						solvePuzzle(puzz, cellList, curr + 1) && 
+						!puzz.hasZeros()) {
 					// option worked
 					return true;
 				} else {
