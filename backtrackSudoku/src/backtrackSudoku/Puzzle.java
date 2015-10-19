@@ -1,5 +1,15 @@
 package backtrackSudoku;
 
+/*
+ *  Project: Backtracking Sudoku Solver
+ *  Class: Design and Analysis of Algorithms
+ *  Professor Lobo
+ *  Authors:	Christopher Porch <porchc0@students.rowan.edu>
+ *  			Dan Boehmke <boehmked2@students.rowan.edu>
+ *  			Brian Grillo <grillo88@students.rowan.edu>
+ *  version: 2015.10.18
+ */
+
 public class Puzzle {
 
 	private int size, x, y;
@@ -88,7 +98,7 @@ public class Puzzle {
 		for(int j = 0; j < size; j++){
 			block[j] = sdk[ycount + y_offset][xcount + x_offset];
 			xcount++;
-			if(xcount % x == 0 && ycount % y == 0){
+			if(xcount % x == 0){
 				ycount++;
 				xcount = 0;
 			}

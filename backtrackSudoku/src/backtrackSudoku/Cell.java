@@ -1,5 +1,15 @@
 package backtrackSudoku;
 
+/*
+ *  Project: Backtracking Sudoku Solver
+ *  Class: Design and Analysis of Algorithms
+ *  Professor Lobo
+ *  Authors:	Christopher Porch <porchc0@students.rowan.edu>
+ *  			Dan Boehmke <boehmked2@students.rowan.edu>
+ *  			Brian Grillo <grillo88@students.rowan.edu>
+ *  version: 2015.10.18
+ */
+
 public class Cell {
 
 	private int col;
@@ -36,7 +46,7 @@ public class Cell {
 		for (int i = 1; i <= (pSize); i++) {
 			newOptions.enqueue(i);
 		}
-		
+
 		int temp[] = p.getRow(row);
 		int OptLen = newOptions.length();
 		boolean dup;
@@ -49,7 +59,7 @@ public class Cell {
 					j = (j + 2) * pSize;
 				}
 			}
-			if(!dup){
+			if (!dup) {
 				newOptions.enqueue(option);
 			}
 		}
@@ -65,7 +75,7 @@ public class Cell {
 					j = (j + 2) * pSize;
 				}
 			}
-			if(!dup){
+			if (!dup) {
 				newOptions.enqueue(option);
 			}
 		}
@@ -81,7 +91,7 @@ public class Cell {
 					j = (j + 2) * pSize;
 				}
 			}
-			if(!dup){
+			if (!dup) {
 				newOptions.enqueue(option);
 			}
 		}

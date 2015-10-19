@@ -1,11 +1,17 @@
 package backtrackSudoku;
 
 /*
- * Contains methods for solving a given Puzzle.
+ *  Project: Backtracking Sudoku Solver
+ *  Class: Design and Analysis of Algorithms
+ *  Professor Lobo
+ *  Authors:	Christopher Porch <porchc0@students.rowan.edu>
+ *  			Dan Boehmke <boehmked2@students.rowan.edu>
+ *  			Brian Grillo <grillo88@students.rowan.edu>
+ *  version: 2015.10.18
  */
 public class Solver {
-	public static Puzzle currentPuzzle;
-	public static int w = 0, h = 0, size = 0;
+	public Puzzle currentPuzzle;
+	public int w = 0, h = 0, size = 0;
 
 	Solver(Puzzle puzz) {
 		currentPuzzle = puzz;
@@ -14,7 +20,7 @@ public class Solver {
 		size = puzz.getSize();
 	}
 
-	public static void Solve() {
+	public void Solve() {
 
 		int[][] tempPuzz = clonePuzzle(currentPuzzle.getGrid());
 		int tempRow[] = new int[size];
@@ -37,7 +43,10 @@ public class Solver {
 		}
 	}
 
-	private static boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
+	private boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
+		int sdk[][] = puzz.getGrid();
+		Cell c = cellList[curr];
+
 		System.out.println();
 		listPuzzle(puzz.getGrid());
 		if (curr == puzz.getCellCount()) {
@@ -45,31 +54,31 @@ public class Solver {
 			System.out.println();
 			listPuzzle(puzz.getGrid());
 			return checkPuzzle(puzz);
-		} else if (cellList[curr].getOptions().isEmpty()) {
+		}
+		// reduce current option
+		c.reduceOptions(puzz);
+		if (c.getOptions().isEmpty()) {
 			// cell has no viable option
+			sdk[c.getRow()][c.getCol()] = 0;
+			puzz.setGrid(sdk);
 			return false;
 		} else {
-			Cell c = cellList[curr];
 			int L = c.getOptions().length();
 			for (int i = 0; i < L; i++) {
-				c.reduceOptions(puzz);
-				int sdk[][] = puzz.getGrid();
 				try {
 					sdk[c.getRow()][c.getCol()] = c.getOptions().peek();
 					puzz.setGrid(sdk);
 				} catch (Exception e) {
 					// peek failed, cell has no more options
+					sdk[c.getRow()][c.getCol()] = 0;
+					puzz.setGrid(sdk);
 					return false;
 				}
 				// check option
-				// solved = solvePuzzle(puzz, cellList, curr + 1);
-				if (checkPuzzle(puzz) && 
-						solvePuzzle(puzz, cellList, curr + 1) &&
-						!puzz.hasZeros()) {
+				if (checkPuzzle(puzz) && solvePuzzle(puzz, cellList, curr + 1) && !puzz.hasZeros()) {
 					// option worked
 					return true;
 				} else {
-					
 					try {
 						c.getOptions().dequeue();
 					} catch (Exception e) {
@@ -81,10 +90,12 @@ public class Solver {
 				}
 			}
 		}
+		sdk[c.getRow()][c.getCol()] = 0;
+		puzz.setGrid(sdk);
 		return false;
 	}
 
-	public static int[][] clonePuzzle(int[][] puzz) {
+	public int[][] clonePuzzle(int[][] puzz) {
 		int size = puzz.length;
 		int tempSDK[][] = new int[size][size];
 		for (int x = 0; x < (size); x++) {
@@ -95,7 +106,7 @@ public class Solver {
 		return tempSDK;
 	}// end clonePuzzle
 
-	public static boolean checkRowColumn(int[] nums) {
+	public boolean checkRowColumn(int[] nums) {
 		int[] test = new int[nums.length + 1];
 		for (int i = 0; i < nums.length; i++) {
 			if (test[nums[i]] == 0) {
@@ -109,7 +120,7 @@ public class Solver {
 		return true;
 	}// end CheckRowColumn
 
-	public static boolean checkBlocks(Puzzle puzz) {
+	public boolean checkBlocks(Puzzle puzz) {
 		int size = puzz.getSize(), w = puzz.getX(), h = puzz.getY();
 		int arr[][] = puzz.getGrid();
 		int x_offset = 0, y_offset = 0;
@@ -121,7 +132,7 @@ public class Solver {
 				// arr[column y ][row x]
 				temparray[j] = arr[ycount + y_offset][xcount + x_offset];
 				xcount++;
-				if (xcount % puzz.getX() == 0 && ycount % puzz.getY() == 0) {
+				if (xcount % puzz.getX() == 0) {
 					ycount++;
 					xcount = 0;
 				}
@@ -148,7 +159,7 @@ public class Solver {
 	 * checkBlocks methods. returns true if the puzzle is a valid solution,
 	 * false if not.
 	 */
-	public static boolean checkPuzzle(Puzzle puzz) {
+	public boolean checkPuzzle(Puzzle puzz) {
 		boolean pass = false;
 		int temp[][] = puzz.getGrid();
 		int tempRow[] = new int[size];
@@ -176,7 +187,7 @@ public class Solver {
 
 	}// end checkPuzzle
 
-	public static void listPuzzle(int[][] puzz) {
+	public void listPuzzle(int[][] puzz) {
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
 				System.out.print(puzz[x][y] + " ");
