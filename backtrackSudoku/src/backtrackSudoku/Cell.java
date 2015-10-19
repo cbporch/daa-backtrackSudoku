@@ -15,11 +15,11 @@ public class Cell {
 		}
 	}
 
-	public int getX() {
+	public int getCol() {
 		return col;
 	}
 
-	public int getY() {
+	public int getRow() {
 		return row;
 	}
 

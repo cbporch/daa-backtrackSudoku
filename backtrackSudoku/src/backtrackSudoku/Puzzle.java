@@ -71,22 +71,19 @@ public class Puzzle {
 		for(int row = r; row > 0; row--){
 			if((row % y) == 0){
 				y_offset = row;
+				// break loop
+				row = 0;
 			}
 		}
 		
 		for(int col = c; col > 0; col--){
 			if((col % x) == 0){
 				x_offset = col;
+				// break loop
+				col =  0;
 			}
 		}
 		
-//		int count = 0;
-//		for (int j = x_offset; j < (y + x_offset); j++) {
-//			for (int k = y_offset; k < x + y_offset; k++) {
-//				block[count] = sdk[j][k];
-//				count++;
-//			}
-//		}
 		int xcount = 0, ycount = 0;
 		for(int j = 0; j < size; j++){
 			block[j] = sdk[ycount + y_offset][xcount + x_offset];
@@ -99,6 +96,16 @@ public class Puzzle {
 		return block;
 	}
 
+	public boolean hasZeros(){
+		for(int i = 0; i<size; i++){
+			for(int j = 0; j < size; j++){
+				if(sdk[i][j] == 0){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void sortCells() {
 
 	} // end sortCells

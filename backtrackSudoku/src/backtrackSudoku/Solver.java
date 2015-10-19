@@ -30,7 +30,7 @@ public class Solver {
 		}
 		System.out.println("\nEntered Puzzle:");
 		listPuzzle(tempPuzz);
-		if(solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0)){
+		if (solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0)) {
 			System.out.println("Solved");
 		} else {
 			System.out.println("Unsolvable");
@@ -38,7 +38,8 @@ public class Solver {
 	}
 
 	private static boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
-	
+		System.out.println();
+		listPuzzle(puzz.getGrid());
 		if (curr == puzz.getCellCount()) {
 			// no more cells, check solution for duplicates
 			System.out.println();
@@ -49,55 +50,36 @@ public class Solver {
 			return false;
 		} else {
 			Cell c = cellList[curr];
-			c.reduceOptions(puzz);
-		
-			if (c.getOptions().isEmpty()) {
-				// current cell has no options after reduction
-				//System.out.println();
-				//listPuzzle(puzz.getGrid());
-				return false;
-			}
-			
-			//get first option from c, add to grid
-//			int sdk[][] = puzz.getGrid();
-//			sdk[c.getY()][c.getX()] = c.getOptions().peek();
-//			puzz.setGrid(sdk);
-			
-			// check subtree
-//			if (solvePuzzle(puzz, cellList, curr + 1)) {
-//				// if subtree passes return true
-//				return true;
-//			}
-				// loop through all options in c
-			boolean solved = false;
-			for (int i = 0; i < c.getOptions().length(); i++) {
-				// otherwise, attempt again with next subtree, staying with
-				// current cell
+			int L = c.getOptions().length();
+			for (int i = 0; i < L; i++) {
+				c.reduceOptions(puzz);
+				int sdk[][] = puzz.getGrid();
 				try {
-					int sdk[][] = puzz.getGrid();
-					sdk[c.getY()][c.getX()] = c.getOptions().peek();
+					sdk[c.getRow()][c.getCol()] = c.getOptions().peek();
 					puzz.setGrid(sdk);
 				} catch (Exception e) {
 					// peek failed, cell has no more options
 					return false;
 				}
 				// check option
-				solved = solvePuzzle(puzz, cellList, curr + 1);
-				if (solved){
-					//option worked, check subtree
-					//System.out.println();
-					//listPuzzle(puzz.getGrid());
+				// solved = solvePuzzle(puzz, cellList, curr + 1);
+				if (checkPuzzle(puzz) && 
+						solvePuzzle(puzz, cellList, curr + 1) &&
+						!puzz.hasZeros()) {
+					// option worked
 					return true;
 				} else {
+					
 					try {
 						c.getOptions().dequeue();
-					}catch(Exception e){
+					} catch (Exception e) {
 						// no other options
+						sdk[c.getRow()][c.getCol()] = 0;
+						puzz.setGrid(sdk);
 						return false;
 					}
 				}
 			}
-			
 		}
 		return false;
 	}
@@ -130,20 +112,14 @@ public class Solver {
 	public static boolean checkBlocks(Puzzle puzz) {
 		int size = puzz.getSize(), w = puzz.getX(), h = puzz.getY();
 		int arr[][] = puzz.getGrid();
-		int x_offset = 0, y_offset = 0, point = 0;
+		int x_offset = 0, y_offset = 0;
 		boolean pass = false;
 		int temparray[] = new int[size];
 		for (int i = 0; i < size; i++) {
-			// point = 0;
-			// for (int j = x_offset; j < (w + x_offset); j++) {
-			// for (int k = y_offset; k < h + y_offset; k++) {
-			// temparray[point] = arr[j][k];
-			// point++;
-			// }
-			// }
 			int xcount = 0, ycount = 0;
 			for (int j = 0; j < size; j++) {
-				temparray[j] = arr[xcount + x_offset][ycount + y_offset];
+				// arr[column y ][row x]
+				temparray[j] = arr[ycount + y_offset][xcount + x_offset];
 				xcount++;
 				if (xcount % puzz.getX() == 0 && ycount % puzz.getY() == 0) {
 					ycount++;

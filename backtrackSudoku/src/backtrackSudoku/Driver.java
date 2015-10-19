@@ -25,8 +25,6 @@ public class Driver {
 			
 			try{
 				filename = args[0];
-				//filename = "src\\testInput.txt";
-				//System.out.println(filename);
 			}catch(Exception e){
 				System.out.print("Error reading from file.\n" + e.toString());
 				throw e;
@@ -34,8 +32,8 @@ public class Driver {
 			
 			Puzzle puzz = readFile(filename);
 			
-			int t[] = puzz.getBlock(1, 3);
-			int t2[] = puzz.getBlock(0, 0);
+			int t[] = puzz.getBlock(1, 1);
+			int t2[] = puzz.getBlock(0, 1);
 			boolean pass = false;
 			for(int i = 0; i < t.length; i++){
 				
