@@ -32,7 +32,7 @@ public class Puzzle {
 				cells[i] = c;
 			}
 		}
-		// sortCells();
+		//sortCells();
 	}
 
 	public int[] getRow(int r) {
@@ -117,6 +117,65 @@ public class Puzzle {
 		return false;
 	}
 	public void sortCells() {
-
+//		int l = cells.length();
+//		if (l > 1) {
+//			Cell greatest = null, next = null;
+//			for (int i = 0; i < l; i++) {
+//				greatest = cells.dequeue();
+//				next = cells.peek();
+//				if (greatest.getOptions().length() <= next.getOptions().length()) {
+//					cells.enqueue(greatest);
+//					greatest = next;
+//					next = cells.peek();
+//				}
+//			}
+//		}
+		//int l = cells.length;
+		//Cell tempArray[] = new Cell[l];
+		
+		//for(int i = 0; i<l; i++){
+			//tempArray[i] = cells[i];
+		//}
+		int High = cellCount-1;
+		quickSort(0,High,cells);
 	} // end sortCells
+	
+	private static void quickSort(int Low, int High,Cell[] num)
+    {
+        int low = Low;
+        int high = High;
+        int pivot = num[Low + (High - Low) /2].getOptions().length();
+        while(low <= high)
+            {
+                while (num[low].getOptions().length() < pivot)
+                    {
+                        low++;
+                    }
+                while (num[high].getOptions().length() > pivot)
+                    {
+                        high--;
+                    }
+                if (low <= high)
+                    {
+                        sort(low, high, num);
+                        low++;
+                        high--;
+                    }
+            }
+        if (Low < high)
+            {
+                quickSort(Low, high, num);
+            }
+        if (low < High)
+            {
+                quickSort(low, High, num);
+            }
+    }
+
+    private static void sort(int low, int high, Cell[] num)
+    {
+        Cell temp = num[low];
+        num[low] = num[high];
+        num[high] = temp;
+    }
 }
