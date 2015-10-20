@@ -1,12 +1,35 @@
 package backtrackSudoku;
 
+/*
+ *  Project: Backtracking Sudoku Solver
+ *  Class: Design and Analysis of Algorithms
+ *  Professor Lobo
+ *  Authors:	Christopher Porch <porchc0@students.rowan.edu>
+ *  			Dan Boehmke <boehmked2@students.rowan.edu>
+ *  			Brian Grillo <grillo88@students.rowan.edu>
+ *  version: 2015.10.18
+ */
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class SolverTest {
 
-	Solver solve;
+	int[][] testPuzzInts = new int[][]{
+		{1,0,5,0,8,0,0,0,0},
+		{3,0,0,4,1,0,0,0,8},
+		{0,0,2,0,0,9,0,1,7},
+		{0,0,0,0,7,0,9,0,1},
+		{0,0,9,0,3,6,8,0,0},
+		{0,1,8,5,0,0,0,0,3},
+		{5,0,1,8,0,7,3,0,6},
+		{7,0,6,9,5,0,0,0,0},
+		{0,0,0,0,2,3,1,0,5}};
+	Cell tempCell = new Cell(0,0,0);
+	Cell cells[] = {tempCell};
+	Puzzle testPuzz = new Puzzle(3,3,testPuzzInts,cells,1);
+	Solver solve = new Solver(testPuzz);
 
 	@Test
 	public void testClonePuzzle() {
@@ -16,8 +39,6 @@ public class SolverTest {
 			{1,2,3,4},
 			{1,2,3,4}};
 		int[][] tempInts = solve.clonePuzzle(ints);
-		solve.listPuzzle(ints);
-		solve.listPuzzle(tempInts);
 		assertArrayEquals(ints,tempInts);
 	}
 
@@ -62,9 +83,87 @@ public class SolverTest {
 			{5,0,1,8,0,7,3,0,6},
 			{7,0,6,9,5,0,0,0,0},
 			{0,0,0,0,2,3,1,0,5}};
-		Cell tempCell = new Cell(0,0,0);
-		Cell cells[] = {tempCell};
-		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts,cells,1);
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
 		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testB1()
+	{
+		int[][] testPuzzInts = new int[][]{
+		{0,0,0,1,0,6},
+		{6,0,4,0,0,0},
+		{1,0,2,0,0,0},
+		{0,0,0,5,0,1},
+		{0,0,0,6,0,3},
+		{5,0,6,0,0,0}};
+		Puzzle testPuzz = new Puzzle(3,2,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,2,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testB3()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{8,1,0,0,0,3,0,0,9},
+			{0,0,3,6,0,0,0,0,0},
+			{0,7,0,0,9,0,2,0,0},
+			{0,5,0,0,0,7,0,0,6},
+			{0,0,0,0,4,5,7,0,0},
+			{0,0,0,1,0,0,0,3,0},
+			{0,0,1,0,0,0,0,6,8},
+			{4,3,8,5,0,0,0,1,0},
+			{0,9,0,0,0,0,4,0,0}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testB5()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{0,5,0,0,0,0,0,0,7},
+			{0,7,8,0,0,4,0,0,6},
+			{0,0,0,0,0,1,8,0,0},
+			{0,0,0,0,1,0,7,5,4},
+			{0,0,5,4,0,0,3,0,0},
+			{0,0,0,9,8,0,6,0,1},
+			{7,0,3,1,0,8,0,0,0},
+			{4,0,0,0,0,9,0,0,0},
+			{0,1,9,0,0,6,0,0,8}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testBU()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{1,2,8,0,0,3,0,0,9},
+			{0,9,5,0,1,0,0,0,0}, 
+			{0,0,0,1,0,6,0,0,0}, 
+			{0,0,9,2,0,0,0,0,0},
+			{0,3,0,0,0,0,5,8,0},
+			{0,8,0,0,0,5,0,0,0},
+			{0,0,0,0,3,8,0,0,0},
+			{0,0,7,5,6,0,0,9,0},
+			{0,0,0,9,7,2,6,5,0}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertFalse(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
 }
