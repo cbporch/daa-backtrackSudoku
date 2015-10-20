@@ -22,26 +22,8 @@ public class Solver {
 
 	public void Solve() {
 		int[][] tempPuzz = currentPuzzle.getGrid();
-		int tempRow[] = new int[size];
-		int tempCol[] = new int[size];
-		// test block
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				tempRow = tempPuzz[i];
-				tempCol[j] = tempPuzz[j][i];
-			}
-			System.out.println("Row " + (i + 1) + " = " + checkRowColumn(tempRow));
-			System.out.println("Column " + (i + 1) + " = " + checkRowColumn(tempCol));
-		}
 		
-		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
-			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
-		}
-		System.out.println();
 		currentPuzzle.sortCells();
-		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
-			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
-		}
 		
 		System.out.println("\nEntered Puzzle:");
 		listPuzzle(tempPuzz);

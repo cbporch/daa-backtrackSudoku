@@ -38,15 +38,6 @@ public class Driver {
 
 			Puzzle puzz = readFile(filename);
 
-			int t[] = puzz.getBlock(1, 1);
-			int t2[] = puzz.getBlock(0, 1);
-			boolean pass = false;
-			for (int i = 0; i < t.length; i++) {
-
-				pass = (t[i] == t2[i]);
-				System.out.println(t[i] + " " + t2[i] + " " + pass);
-			}
-			System.out.println();
 			Solver solve = new Solver(puzz);
 			solve.Solve();
 
