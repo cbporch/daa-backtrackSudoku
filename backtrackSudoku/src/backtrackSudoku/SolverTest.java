@@ -80,4 +80,20 @@ public class SolverTest {
 		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts,cells,1);
 		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
+	
+	@Test
+	public void testB1()
+	{
+		int[][] testPuzzInts = new int[][]{
+		{0,0,0,1,0,6},
+		{6,0,4,0,0,0},
+		{1,0,2,0,0,0},
+		{0,0,0,5,0,1},
+		{0,0,0,6,0,3},
+		{5,0,6,0,0,0}};
+		Cell tempCell = new Cell(0,0,0);
+		Cell cells[] = {tempCell};
+		Puzzle testPuzz = new Puzzle(3,2,testPuzzInts,cells,1);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
 }
