@@ -21,7 +21,7 @@ public class Driver {
 		tim = new Timer();
 		tim.start();
 
-		boolean test = false;
+		boolean test = true;
 		if (!test) {
 			if (args.length < 1) {
 				System.out.print("Error: need file name in command line\n");

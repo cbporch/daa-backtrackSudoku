@@ -21,8 +21,7 @@ public class Solver {
 	}
 
 	public void Solve() {
-
-		int[][] tempPuzz = clonePuzzle(currentPuzzle.getGrid());
+		int[][] tempPuzz = currentPuzzle.getGrid();
 		int tempRow[] = new int[size];
 		int tempCol[] = new int[size];
 		// test block
@@ -53,8 +52,8 @@ public class Solver {
 
 	protected boolean solvePuzzle(Puzzle puzz, Cell[] cellList, int curr) {
 		int sdk[][] = puzz.getGrid();
-		System.out.println();
-		listPuzzle(puzz.getGrid());
+		//System.out.println();
+		//listPuzzle(puzz.getGrid());
 		if (curr == puzz.getCellCount()) {
 			// no more cells, check solution for duplicates
 			System.out.println();
@@ -197,6 +196,7 @@ public class Solver {
 	}// end checkPuzzle
 
 	public void listPuzzle(int[][] puzz) {
+		size = puzz.length;
 		for (int x = 0; x < (size); x++) {
 			for (int y = 0; y < (size); y++) {
 				System.out.print(puzz[x][y] + " ");

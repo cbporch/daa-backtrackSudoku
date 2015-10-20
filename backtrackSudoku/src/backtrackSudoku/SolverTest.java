@@ -91,9 +91,10 @@ public class SolverTest {
 		{0,0,0,5,0,1},
 		{0,0,0,6,0,3},
 		{5,0,6,0,0,0}};
-		Cell tempCell = new Cell(0,0,0);
-		Cell cells[] = {tempCell};
-		Puzzle testPuzz = new Puzzle(3,2,testPuzzInts,cells,1);
+		Puzzle testPuzz = new Puzzle(3,2,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,2,testPuzzInts,cells,cells.length);
+		solve = new Solver(testPuzz);
 		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
 }
