@@ -6,7 +6,20 @@ import org.junit.Test;
 
 public class SolverTest {
 
-	Solver solve;
+	int[][] testPuzzInts = new int[][]{
+		{1,0,5,0,8,0,0,0,0},
+		{3,0,0,4,1,0,0,0,8},
+		{0,0,2,0,0,9,0,1,7},
+		{0,0,0,0,7,0,9,0,1},
+		{0,0,9,0,3,6,8,0,0},
+		{0,1,8,5,0,0,0,0,3},
+		{5,0,1,8,0,7,3,0,6},
+		{7,0,6,9,5,0,0,0,0},
+		{0,0,0,0,2,3,1,0,5}};
+	Cell tempCell = new Cell(0,0,0);
+	Cell cells[] = {tempCell};
+	Puzzle testPuzz = new Puzzle(3,3,testPuzzInts,cells,1);
+	Solver solve = new Solver(testPuzz);
 
 	@Test
 	public void testClonePuzzle() {
