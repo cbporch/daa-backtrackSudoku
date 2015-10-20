@@ -75,9 +75,10 @@ public class SolverTest {
 			{5,0,1,8,0,7,3,0,6},
 			{7,0,6,9,5,0,0,0,0},
 			{0,0,0,0,2,3,1,0,5}};
-		Cell tempCell = new Cell(0,0,0);
-		Cell cells[] = {tempCell};
-		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts,cells,1);
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
 		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
 	
@@ -94,7 +95,47 @@ public class SolverTest {
 		Puzzle testPuzz = new Puzzle(3,2,testPuzzInts);
 		Cell cells[] = testPuzz.makeCells(testPuzzInts);
 		testPuzz = new Puzzle(3,2,testPuzzInts,cells,cells.length);
-		solve = new Solver(testPuzz);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testB3()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{8,1,0,0,0,3,0,0,9},
+			{0,0,3,6,0,0,0,0,0},
+			{0,7,0,0,9,0,2,0,0},
+			{0,5,0,0,0,7,0,0,6},
+			{0,0,0,0,4,5,7,0,0},
+			{0,0,0,1,0,0,0,3,0},
+			{0,0,1,0,0,0,0,6,8},
+			{4,3,8,5,0,0,0,1,0},
+			{0,9,0,0,0,0,4,0,0}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	
+	@Test
+	public void testB5()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{0,5,0,0,0,0,0,0,7},
+			{0,7,8,0,0,4,0,0,6},
+			{0,0,0,0,0,1,8,0,0},
+			{0,0,0,0,1,0,7,5,4},
+			{0,0,5,4,0,0,3,0,0},
+			{0,0,0,9,8,0,6,0,1},
+			{7,0,3,1,0,8,0,0,0},
+			{4,0,0,0,0,9,0,0,0},
+			{0,1,9,0,0,6,0,0,8}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
 		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
 }

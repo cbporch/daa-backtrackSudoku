@@ -141,7 +141,12 @@ public class Puzzle {
 			}
 		}
 		this.cellCount=cellCount;
-		return tempCells;
+		Cell[] returnCells = new Cell[cellCount];
+		for (int p = 0; p < cellCount; p++)
+		{
+			returnCells[p] = tempCells[p];
+		}
+		return returnCells;
 	}
 
 	public void sortCells() {

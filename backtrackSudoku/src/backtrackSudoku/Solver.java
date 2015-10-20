@@ -33,6 +33,7 @@ public class Solver {
 			System.out.println("Row " + (i + 1) + " = " + checkRowColumn(tempRow));
 			System.out.println("Column " + (i + 1) + " = " + checkRowColumn(tempCol));
 		}
+		
 		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
 			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
 		}
@@ -41,6 +42,7 @@ public class Solver {
 		for(int i = 0; i < currentPuzzle.getCellCount(); i++){
 			System.out.print(currentPuzzle.getCells()[i].getOptions().length() + " ");
 		}
+		
 		System.out.println("\nEntered Puzzle:");
 		listPuzzle(tempPuzz);
 		if (solvePuzzle(currentPuzzle, currentPuzzle.getCells(), 0)) {
