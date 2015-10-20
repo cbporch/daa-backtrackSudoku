@@ -1,4 +1,5 @@
 package backtrackSudoku;
+
 /*
  *  Project: Backtracking Sudoku Solver
  *  Class: Design and Analysis of Algorithms
@@ -6,7 +7,7 @@ package backtrackSudoku;
  *  Authors:	Christopher Porch <porchc0@students.rowan.edu>
  *  			Dan Boehmke <boehmked2@students.rowan.edu>
  *  			Brian Grillo <grillo88@students.rowan.edu>
- *  version: 2015.10.18
+ *  version: 2015.10.20
  */
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,46 +18,33 @@ import java.util.regex.Pattern;
 public class Driver {
 	public static Timer tim;
 
+	/*
+	 * Method main initializes all file reading and contains the program timer.
+	 * Boolean test used to ignore this sectionn while running JUnit
+	 */
 	public static void main(String[] args) {
+		// start Timer
 		tim = new Timer();
 		tim.start();
-
 		boolean test = false;
 		if (!test) {
 			if (args.length < 1) {
 				System.out.print("Error: need file name in command line\n");
-			}
-
+			} // end if
 			String filename = "";
-
 			try {
 				filename = args[0];
 			} catch (Exception e) {
 				System.out.print("Error reading from file.\n" + e.toString());
 				throw e;
-			}
-
-			Puzzle puzz = readFile(filename);
-
-			int t[] = puzz.getBlock(1, 1);
-			int t2[] = puzz.getBlock(0, 1);
-			boolean pass = false;
-			for (int i = 0; i < t.length; i++) {
-
-				pass = (t[i] == t2[i]);
-				System.out.println(t[i] + " " + t2[i] + " " + pass);
-			}
-			System.out.println();
-			Solver solve = new Solver(puzz);
+			} // end try catch
+				// initialize puzzle and call Solver class solve method
+			Solver solve = new Solver(readFile(filename));
 			solve.Solve();
-
-		} else {
-
-		}
-
+		} // end if
 		tim.stop();
 		System.out.println("Total Runtime: " + tim.getDuration() + " milliseconds");
-	}
+	}// end main
 
 	/*
 	 * Using a given filename, reads from a file using BufferedReader, and
@@ -67,7 +55,6 @@ public class Driver {
 	private static Puzzle readFile(String filename) {
 		int w = 0, h = 0, size = 0;
 		BufferedReader br = null;
-
 		try {
 			br = new BufferedReader(new FileReader(filename));
 			String line = skipComments(br);
@@ -77,7 +64,6 @@ public class Driver {
 		} catch (Exception e) {
 			System.out.println("Error reading from file\n");
 		} // end try catch
-
 		size = w * h;
 		Cell[] cells = new Cell[size * size]; // use size simply for
 												// initialization
@@ -107,13 +93,11 @@ public class Driver {
 				} // end if
 				y++;
 			} // end while
-				// System.out.println("");
-
 		} // end for
 
 		Puzzle puzz = new Puzzle(w, h, sdk, cells, cellCount);
 		return puzz;
-	}
+	}// end readFile
 
 	/*
 	 * Method to skip comments in the given input file. If the given line begins
@@ -133,5 +117,4 @@ public class Driver {
 		} // end try-catch
 		return line;
 	}// end skipComments
-
-}
+}// end Driver
