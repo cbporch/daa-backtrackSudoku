@@ -166,4 +166,19 @@ public class SolverTest {
 		Solver solve = new Solver(testPuzz);
 		assertFalse(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
+	
+	@Test
+	public void testcheckPuzzle()
+	{
+		int[][] trueInts = new int[][]{
+			{2,3,1,4},
+			{4,1,3,2},
+			{3,2,4,1},
+			{1,4,2,3}};
+		Puzzle testPuzz = new Puzzle(2,2,trueInts);
+		Cell cells[] = testPuzz.makeCells(trueInts);
+		testPuzz = new Puzzle(2,2,trueInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.checkPuzzle(testPuzz));
+	}
 }
