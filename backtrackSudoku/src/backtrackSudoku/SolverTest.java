@@ -158,4 +158,33 @@ public class SolverTest {
 		Solver solve = new Solver(testPuzz);
 		assertFalse(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
 	}
+	
+	@Test
+	public void testBlank22()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{0,0,0,0},
+			{0,0,0,0},
+			{0,0,0,0}, 
+			{0,0,0,0}};
+		Puzzle testPuzz = new Puzzle(2,2,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(2,2,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
+	@Test
+	public void testBlank33()
+	{
+		int[][] testPuzzInts = new int[][]{
+			{0,0,0,0},
+			{0,0,0,0},
+			{0,0,0,0}, 
+			{0,0,0,0}};
+		Puzzle testPuzz = new Puzzle(3,3,testPuzzInts);
+		Cell cells[] = testPuzz.makeCells(testPuzzInts);
+		testPuzz = new Puzzle(3,3,testPuzzInts,cells,cells.length);
+		Solver solve = new Solver(testPuzz);
+		assertTrue(solve.solvePuzzle(testPuzz, testPuzz.getCells(), 0));
+	}
 }
